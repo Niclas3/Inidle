@@ -120,11 +120,13 @@ class _Engine(object):
 
 
 def create_engine(user, password, database, host='127.0.0.1', port=3306, **kw):
+    if not isinstance(password, str):
+        raise ValueError('password is must be string.')
+
     import mysql.connector  # only use one time
     global engine
     if engine is not None:
         raise DBError("Engine is already initialized.")
-
     params = dict(user=user, password=password,
             database=database, host=host, port=port)
     defaults = dict(use_unicode=True, 
@@ -198,7 +200,7 @@ def _select(sql, frist, *args):
             values = cursor.fetchone;
             if not values:
                 return None
-            return Dict(names, values)  # return diction type 
+            return Dict(names, values)  # return dict type 
         return [Dict(names, x) for x in cursor.fetchall()]
     finally:
         if cursor:
@@ -301,7 +303,11 @@ def _update(sql, *args):
             cursor.close()
 
 def insert(table, **kw):
-    pass
+    cols, args = zip(*kw.iteritems())
+    sql = 'insert into `%s` (%s) values (%s)' % \
+    (table, ','.join(['`%s`' % col for col in cols]), 
+            ','.join(['?' for i in range(len(cols))]))
+    return _update(sql, *args)
 
 def update(sql, *args):
     return _update(sql, *args)
