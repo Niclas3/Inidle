@@ -197,7 +197,7 @@ def _select(sql, frist, *args):
         if cursor.description:
             names = [x[0] for x in cursor.description]
         if frist:
-            values = cursor.fetchone;
+            values = cursor.fetchone();  # fix bug here ,forget '()' with methed
             if not values:
                 return None
             return Dict(names, values)  # return dict type 
@@ -303,7 +303,7 @@ def _update(sql, *args):
             cursor.close()
 
 def insert(table, **kw):
-    cols, args = zip(*kw.iteritems())
+    cols, args = zip(*kw.iteritems()) # use zip() to unzip key and value that
     sql = 'insert into `%s` (%s) values (%s)' % \
     (table, ','.join(['`%s`' % col for col in cols]), 
             ','.join(['?' for i in range(len(cols))]))
@@ -317,4 +317,5 @@ if __name__ == "__main__":
     logging.info('start DEBUG')
     create_engine('root','123', 'inidle')
     L = select('select count(*) from Users')
-    print L
+    sql  = select('select * from Users where user_id = 3')
+    print  sql
