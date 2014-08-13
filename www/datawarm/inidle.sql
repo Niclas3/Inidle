@@ -17,7 +17,7 @@ use inidle;
 
  Plans table
  create table Plans
- (
+(
      plan_id           int         not null AUTO_INCREMENT,
      plan_userId       int         not null,
      plan_classId      int         not null,

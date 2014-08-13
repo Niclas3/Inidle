@@ -1,24 +1,6 @@
 # -*- coding:utf8 -*-
 import db , logging, time
 
-
-#class ModelMetaclass(type):
-#
-#    def __new__(cls, name, bases, attrs):
-#        if name == 'Model':
-#            return type.__new__(cls, name, bases, attrs)
-#        print 'Found model: %s' % name
-#        mappings = dict()
-#        for k, v in attrs.iteritems():
-#            if isinstance(v, Field):
-#                print 'Found mapping: %s ==> %s' % (k, v)
-#                mappings[k] = v
-#        for k in mappings.iterkeys():
-#            attrs.pop(k)
-#        attrs['__mappings__'] = mappings 
-#        attrs['__table__'] = name
-#        return type.__new__(cls, name, bases, attrs)
-
 class ModelMetaclass(type):
     '''
     Metaclass for model objects.
@@ -62,7 +44,7 @@ class ModelMetaclass(type):
         for k in mappings.iterkeys():
             attrs.pop(k)
         if not '__table__' in attrs:
-            attrs['__table__'] = name[:1].upper() + name[1:]
+            attrs['__table__'] = name.lower()
         attrs['__mappings__'] = mappings
         attrs['__primary_key__'] = primary_key
         attrs['__sql__'] = lambda self: _gen_sql(attrs['__table__'], mappings)
@@ -330,15 +312,15 @@ if __name__=='__main__':
 
 
     class Users(Model):
+        __table__ = 'Users'
         user_id = IntegerField(primary_key=True)
-        name = StringField()
+        user_name = StringField()
         passwd = StringField()
         isdel = BooleanField()
 
 
     db.create_engine('root','123', 'inidle')
 
-    u = Users(id=1002, name='Efan', passwd='******', isdel=False)
+    u = Users(user_id=1002, name='Efan', passwd='******', isdel=False)
     user = Users.get(3)
-    print user
 
