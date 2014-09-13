@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+        {% block meta %} <!-- I dont know what this is. --> {% endblock %}
+        <title>{% block title %} I HEAT THIS {% endblock%}INIDEL－不虚度</title>
+	<link rel="stylesheet" href="../static/css/uikit.min.css">
+	<link rel="stylesheet" href="../static/css/style.css">
+	<link rel="stylesheet" href="../static/css/fullcalendar.css">
+	<link rel='stylesheet' href='../static/css/fullcalendar.print.css' media='print' />
+	<script src="../static/js/jquery-1.11.1.min.js"></script>
+	<script src="../static/js/Chart.min.js"></script>
+	<script src="../static/js/uikit.min.js"></script>
+	<script src="../static/js/moment.min.js"></script>
+	<script src='../static/js/jquery-ui.custom.min.js'></script>
+	<script src="../static/js/fullcalendar.min.js"></script>
+	<script src='../static/js/zh-cn.js'></script>
+        {% block beforehead %} <!-- HEHE --> {% endblock %}
+</head>
+<body>
+	<nav class="uk-navbar">
+		<a href="/" class="uk-navbar-brand">INIDEL</a>
+		<div class="uk-navbar-flip">
+        	<ul class="uk-navbar-nav uk-hidden-small">
+                {% if users %}
+            	<li><a href="#today" data-uk-modal>每天安排</a></li>
+            	<li><a href="#my-id" data-uk-offcanvas>查看日程</a></li>
+                <li><a href="#" class="uk-text-middle"><i class="uk-icon-user"></i>{{users.user_name}}</a></li>
+                {% else %}
+                <li><a href="/signin"><i class="uk-icon-sign-in"></i> 登陆</a></li>
+                <li><a href="/register"><i class="uk-icon-edit"></i> 注册</a></li>
+                {% endif %}
+        	</ul>
+    		<a href="#small_nav" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
+    	</div>
+
+
+    	<!-- 今日安排 -->
+    	<div id="today" class="uk-modal">
+		    <div class="uk-modal-dialog">
+		        <a class="uk-modal-close uk-close"></a>
+		        	<canvas id="chart-area" width="400" height="400"></canvas>
+		    </div>
+		</div>
+	</nav>
+	<div class="main uk-grid">
+		<div class="date uk-width-10-10">
+			<div id='calendar'></div>
+		</div>
+		<!-- 这是弹出式的边栏 -->
+		<div id="my-id" class="uk-offcanvas">
+		    <div class="uk-offcanvas-bar uk-offcanvas-bar-flip">
+		    	<ul class="uk-nav uk-nav-offcanvas">
+            		<li><a href="#">你的所有日程安排：</a></li>
+            		<li><a href="#">想去玩</a></li>
+            	</ul>
+		    </div>
+		</div>
+	</div>
+
+    <div class="uk-container uk-container-center">
+        <div class="uk-grid">
+            <!-- content -->
+            {% block content %}
+            niclas
+            {% endblock %}
+            <!-- // content -->
+        </div>
+    </div>
+        
+	<footer>
+		<a href="#model" data-uk-modal>关于INIDLE</a>
+	</footer>
+	<div id="model" class="uk-modal">
+	    <div class="uk-modal-dialog">
+	        <a class="uk-modal-close uk-close"></a>
+	        <p>IDEL不是一个Python的编辑器，而是希望人们不虚度时光。</p>
+	        <p>最初的想法是把这个作为一个空闲时间发布的社交平台。</p>
+	        <p>生命属于人们只有一次。人的一生应当这样度过：</p>
+	        <p>当他回首往事时，他不因虚度年华而悔恨，也不因碌碌无为而羞耻。</p>
+	        <p>这样在临死时，他就能够说：</p>
+	        <p>" 我已把自己的整个生命和全部精力，都献给了世界上最壮丽的事业 "</p>
+	    </div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{% extends '__base__.html' %}
+
+{% block title %} TEST {% endblock%}
+
+{% block content%}
+    <div class="uk-width-medium-3-4">
+    {% for plan in users %}
+        <article class="uk-article">
+            <h2><a href="/blog/{{ plan.user_name  }}">{{ plan.user_name}}</a></h2>
+            <p><a href="/index"> 继续阅读 <i class="uk-icon-angle-double-right"></i></a></p>
+        </article>
+        <hr class="uk-article-divider">
+    {% endfor %}
+    </div>
+{% endblock%}

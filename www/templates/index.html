@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>INIDEL－不虚度</title>
+	<link rel="stylesheet" href="../static/css/uikit.min.css">
+	<link rel="stylesheet" href="../static/css/style.css">
+	<link rel="stylesheet" href="../static/css/fullcalendar.css">
+	<link rel='stylesheet' href='../static/css/fullcalendar.print.css' media='print' />
+</head>
+<body>
+	<nav class="uk-navbar">
+		<a href="#" class="uk-navbar-brand">INIDEL</a>
+		<div class="uk-navbar-flip">
+        	<ul class="uk-navbar-nav uk-hidden-small">
+            	<li><a href="#today" data-uk-modal>每天安排</a></li>
+            	<li><a href="#my-id" data-uk-offcanvas>查看日程</a></li>
+                {% if users %}
+                <li><a href="#" class="uk-text-middle"><i class="uk-icon-user"></i>{{users.user_name}}</a></li>
+                {% endif %}
+        	</ul>
+    		<a href="#small_nav" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
+    	</div>
+    	<!-- 今日安排 -->
+    	<div id="today" class="uk-modal">
+		    <div class="uk-modal-dialog">
+		        <a class="uk-modal-close uk-close"></a>
+		        	<canvas id="chart-area" width="400" height="400"></canvas>
+		    </div>
+		</div>
+	</nav>
+	<div class="main uk-grid">
+		<div class="date uk-width-10-10">
+			<div id='calendar'></div>
+		</div>
+		<!-- 这是弹出式的边栏 -->
+		<div id="my-id" class="uk-offcanvas">
+		    <div class="uk-offcanvas-bar uk-offcanvas-bar-flip">
+		    	<ul class="uk-nav uk-nav-offcanvas">
+            		<li><a href="#">你的所有日程安排：</a></li>
+            		<li><a href="#">想去玩</a></li>
+            	</ul>
+		    </div>
+		</div>
+	</div>
+	<footer>
+		<a href="#model" data-uk-modal>关于INIDLE</a>
+	</footer>
+	<div id="model" class="uk-modal">
+	    <div class="uk-modal-dialog">
+	        <a class="uk-modal-close uk-close"></a>
+	        <p>IDEL不是一个Python的编辑器，而是希望人们不虚度时光。</p>
+	        <p>最初的想法是把这个作为一个空闲时间发布的社交平台。</p>
+	        <p>生命属于人们只有一次。人的一生应当这样度过：</p>
+	        <p>当他回首往事时，他不因虚度年华而悔恨，也不因碌碌无为而羞耻。</p>
+	        <p>这样在临死时，他就能够说：</p>
+	        <p>" 我已把自己的整个生命和全部精力，都献给了世界上最壮丽的事业 "</p>
+	    </div>
+	</div>
+	<script src="../static/js/jquery-1.11.1.min.js"></script>
+	<script src="../static/js/Chart.min.js"></script>
+	<script src="../static/js/uikit.min.js"></script>
+	<script src="../static/js/moment.min.js"></script>
+	<script src='../static/js/jquery-ui.custom.min.js'></script>
+	<script src="../static/js/fullcalendar.min.js"></script>
+	<script src='../static/js/zh-cn.js'></script>
+	<!-- full calendar -->
+	<script>
+	$(document).ready(function() {
+    // page is now ready, initialize the calendar...
+changeTd();
+    $('#calendar').fullCalendar({
+			// theme: true,
+			header: {
+				left: '',
+				center: 'prev,title,next',
+				right: 'today'
+			},
+			selectable: true,
+			selectHelper: true,
+                        weekMode: liquid,
+			// select: function(start, end) {
+			// 	var title = prompt('事件详细内容:');
+			// 	var eventData;
+			// 	if (title) {
+			// 		eventData = {
+			// 			title: title,
+			// 			start: start,
+			// 			end: end
+			// 		};
+			// 		$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+			// 	}
+			// 	$('#calendar').fullCalendar('unselect');
+			// },
+			editable: true,
+			events: [
+				{
+					title: 'All Day Event',
+					start: '2014-06-01'
+				},
+				{
+					title: 'Long Event',
+					start: '2014-06-07',
+					end: '2014-06-10'
+				},
+				{
+					id: 999,
+					title: 'Repeating Event',
+					start: '2014-06-09T16:00:00'
+				},
+				{
+					id: 999,
+					title: 'Repeating Event',
+					start: '2014-06-16T16:00:00'
+				},
+				{
+					title: 'Meeting',
+					start: '2014-06-12T10:30:00',
+					end: '2014-06-12T12:30:00'
+				},
+				{
+					title: 'Lunch',
+					start: '2014-06-12T12:00:00'
+				},
+				{
+					title: 'Birthday Party',
+					start: '2014-06-13T07:00:00'
+				},
+				{
+					title: 'Click for Google',
+					url: 'http://google.com/',
+					start: '2014-06-28'
+				}
+			]
+
+    	});
+	});
+	</script>
+
+	<script>
+
+        function rgb2hex(rgb){
+                        rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
+            return (rgb && rgb.length === 4) ? "#" +
+             ("0" + parseInt(rgb[1],10).toString(16)).slice(-2) +
+             ("0" + parseInt(rgb[2],10).toString(16)).slice(-2) +
+             ("0" + parseInt(rgb[3],10).toString(16)).slice(-2) : '';
+}
+
+function changeTd(){
+     td= $("tbody>tr>td")
+     for(var i=0 ; i < td.length - 7; i++){
+           td.css('background-color','#F2FAE3')
+   }
+}
+
+
+$('#calendar').fullCalendar({
+        dayClick: function(date, jsEvent, view) {
+
+            bgC = rgb2hex($(this).css('backgroundColor'))
+            //alert(bgC);
+            if(bgC == '#f2fae3'){
+                $(this).css('background-color','#FFB455')
+                alert(date.format());
+                //alert($(this).css("backgroundColor"));
+            }
+            else{
+//                alert('a');
+                $(this).css('background-color', '#f2fae3')
+            }
+	}
+});
+
+	</script>
+
+
+	<!-- chart.js -->
+	<script>		
+	var pieData = [
+		{
+			value: 300,
+			color:"#F7464A",
+			highlight: "#FF5A5E",
+			label: "玩游戏"
+		},
+		{
+			value: 50,
+			color: "#46BFBD",
+			highlight: "#5AD3D1",
+			label: "Green"
+		},
+		{
+			value: 100,
+			color: "#FDB45C",
+			highlight: "#FFC870",
+			label: "Yellow"
+		}
+		];
+
+		window.onload = function(){
+			var ctx = document.getElementById("chart-area").getContext("2d");
+			window.myPie = new Chart(ctx).Pie(pieData);
+		};
+	</script>
+
+</body>
+</html>

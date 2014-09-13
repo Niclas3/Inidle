@@ -1,0 +1,16 @@
+<!doctype html>
+
+<html>
+<head>
+<script src="../static/js/ajax.js"></script>
+<script>
+        var raw = null;
+    function ale(){
+        ajax('get',"/api/ajax",function(str){raw = (eval(str));alert((raw.a))}, function(str){alert(str)})
+    };
+</script>
+</head>
+<body>
+<button type="button" id="but1" value="button" onclick="ale()"><p>button</p></button>
+</body>
+</html>

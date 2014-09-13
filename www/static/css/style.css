@@ -1,0 +1,59 @@
+@font-face {
+  font-family: 'apple_chancerychancery';
+  src: url("../fonts/apple_chancery-webfont.eot");
+  src: url("../fonts/apple_chancery-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/apple_chancery-webfont.woff") format("woff"), url("../fonts/apple_chancery-webfont.ttf") format("truetype"), url("../fonts/apple_chancery-webfont.svg#apple_chancerychancery") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+@font-face {
+  font-family: 'book_antiquaregular';
+  src: url("../fonts/book_antiqua-webfont.eot");
+  src: url("../fonts/book_antiqua-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/book_antiqua-webfont.woff") format("woff"), url("../fonts/book_antiqua-webfont.ttf") format("truetype"), url("../fonts/book_antiqua-webfont.svg#book_antiquaregular") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+@font-face {
+  font-family: 'palatinoregular';
+  src: url("../fonts/palatino-webfont.eot");
+  src: url("../fonts/palatino-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/palatino-webfont.woff") format("woff"), url("../fonts/palatino-webfont.ttf") format("truetype"), url("../fonts/palatino-webfont.svg#palatinoregular") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+body {
+  background-color: #F2FAE3;
+  font-family: "palatinoregular","book_antiquaregular",serif; }
+
+#today {
+  text-align: center; }
+
+.main {
+  position: relative;
+  top: 20px;
+  margin-bottom: 20px; }
+  .main .fc-header-title {
+    padding-left: 20px;
+    padding-right: 20px; }
+  .main .fc-header-right {
+    padding-right: 20px; }
+  .main .date {
+    font-family: "apple_chancerychancery"; }
+
+.fc-day{
+background-color: rgb(242, 250, 227)
+
+}
+
+footer {
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  background-color: #eee;
+  text-align: center; }
+  footer a {
+    color: #444444; }
+  footer a:hover {
+    text-decoration: none;
+    color: #444444; }
+
+.fc-day-number {
+  color: #009966; }
+
+.fc-header-title h2 {
+  font-family: "apple_chancerychancery","book_antiquaregular",serif; }
